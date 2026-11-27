@@ -570,8 +570,8 @@ static inline void gm_1832_sdata2_order(int unused)
 
 void fn_80185408(int x, float arg8, float arg9, float argA, float argB)
 {
-    u8 _[0x30];
-    Mtx sp1C;
+    u8 _[0x20];
+    Mtx44 sp1C;
     GXSetNumChans(1);
     GXSetChanCtrl(GX_COLOR0A0, 0, GX_SRC_REG, GX_SRC_VTX, 0, GX_DF_NONE,
                   GX_AF_NONE);

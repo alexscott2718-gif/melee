@@ -3012,26 +3012,17 @@ void psClearPointJObj(HSD_Particle* particle)
     }
 }
 
-typedef struct {
-    HSD_JObj* jobj[8];
-    HSD_Particle* particle[146];
-    u8 pad[0x410];
-    HSD_ObjAllocData alloc_data;
-} ParticleData;
-
 void hsd_8039D0A0(HSD_Generator* gen)
 {
-    ParticleData* data = (ParticleData*) psPointJObj;
     HSD_Particle* prev;
     HSD_Particle* prt;
     HSD_Particle* next;
-    HSD_Particle** head;
     u16 idnum;
+    s32 linkNo = gen->linkNo;
 
     prev = NULL;
     idnum = gen->idnum;
-    head = &data->particle[gen->linkNo];
-    prt = *head;
+    prt = hsd_804D0908[linkNo];
 
     while (prt != NULL) {
         next = prt->next;
@@ -3043,7 +3034,7 @@ void hsd_8039D0A0(HSD_Generator* gen)
             }
 
             if (prev == NULL) {
-                *head = prt->next;
+                hsd_804D0908[linkNo] = prt->next;
             } else {
                 prev->next = prt->next;
             }
@@ -3058,13 +3049,13 @@ void hsd_8039D0A0(HSD_Generator* gen)
 
             if (prt->kind & 0x8000) {
                 s32 jidx = (prt->kind >> 12) & 7;
-                if (data->jobj[jidx] != NULL) {
-                    HSD_JObjUnref(data->jobj[jidx]);
-                    data->jobj[jidx] = NULL;
+                if (psPointJObj[jidx] != NULL) {
+                    HSD_JObjUnref(psPointJObj[jidx]);
+                    psPointJObj[jidx] = NULL;
                 }
             }
 
-            HSD_ObjFree(&data->alloc_data, prt);
+            HSD_ObjFree(&hsd_804D0F60.alloc_data, prt);
             numActiveParticles--;
         } else {
             prev = prt;

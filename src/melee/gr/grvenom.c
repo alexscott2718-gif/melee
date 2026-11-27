@@ -547,9 +547,7 @@ Ground_GObj* grVenom_80203EAC(int gobj_id)
 {
     Ground_GObj* gobj;
     Ground* gp;
-    grVe_Data* base = &grVe_803E5348;
-    StageCallbacks* callbacks =
-        &((StageCallbacks*) ((char*) base + 0x44))[gobj_id];
+    StageCallbacks* callbacks = &grVe_StageCallbacks[gobj_id];
 
     gobj = Ground_GetStageGObj(gobj_id);
 

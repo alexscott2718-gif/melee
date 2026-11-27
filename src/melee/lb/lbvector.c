@@ -366,9 +366,7 @@ float lbVector_sqrtf_accurate(float x)
 Vec3* lbVector_WorldToScreen(HSD_CObj* cobj, const Vec3* pos3d,
                              Vec3* screenCoords, int d)
 {
-    u8 _[16];
-
-    Mtx projMtx;
+    Mtx44 projMtx;
     float projection[7]; // projection params
     float viewport[6];   // viewport params
     Mtx m;
